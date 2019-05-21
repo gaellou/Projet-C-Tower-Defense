@@ -4,11 +4,11 @@
 
 #include <math.h>
 #include <SDL/SDL.h>
-#include <OpenGL/gl.h>
-#include <OpenGL/glu.h>
-#include <SDL_image/SDL_image.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <SDM/SDL_image.h>
 
-#include <SDL_ttf/SDL_ttf.h>
+#include <SDL/SDL_ttf.h>
 
 
 #include "monster.h"

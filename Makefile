@@ -6,7 +6,7 @@ APP_BIN = itd
 
 SRC_PATH = src
 OBJ_PATH = obj
-INC_PATH = 
+
 BIN_PATH = bin
 LIB_PATH = lib
 

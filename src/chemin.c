@@ -6,10 +6,10 @@
 
 #include <math.h>
 #include <SDL/SDL.h>
-#include <OpenGL/gl.h>
-#include <OpenGL/glu.h>
-#include <SDL_image/SDL_image.h>
-#include <SDL_ttf/SDL_ttf.h> /*bibliothèque texte*/
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <SDL/SDL_image.h>
+#include <SDL/SDL_ttf.h> /*bibliothèque texte*/
 
 
 #include "node.h"
