@@ -18,13 +18,13 @@
 
 /*AJOUTER TOUR*/
 
-l_tower ajouterTour(l_Tour liste, int* coins, int x, int y,int type, char** message){
+l_Tour ajouterTour(l_Tour liste, int* coins, int x, int y,int type, char** message){
     int error = 0;
     int ray;
     int puissance;
     float cadence;
     int cost;
-
+    float timeConst;
     //en fonction du type de Tour
     switch(type) {
         case 1: //rouge
@@ -42,7 +42,7 @@ l_tower ajouterTour(l_Tour liste, int* coins, int x, int y,int type, char** mess
             timeConst = 10.f;
             break;
         case 3: //jaune
-            ray = 100
+            ray = 100;
             puissance = 70;
             cadence = 0.2;
             cost = 30;

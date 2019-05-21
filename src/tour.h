@@ -7,7 +7,7 @@
 typedef struct s_Tour{
     int x; //position
     int y;
-    int ray;
+    int rayon;
     int cost;
     int type;
     int puissance;
