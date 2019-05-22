@@ -6,13 +6,13 @@
 #include <SDL/SDL.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include <SDM/SDL_image.h>
+#include <SDL/SDL_image.h>
 
 #include <SDL/SDL_ttf.h>
 
 
-#include "monster.h"
-#include "tower.h"
+#include "monstre.h"
+#include "tour.h"
 
 
 /*AJOUTER NOEUD*/

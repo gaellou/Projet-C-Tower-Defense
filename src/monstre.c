@@ -11,10 +11,10 @@
 
 #include <SDL/SDL_ttf.h> /*bibliothèque texte*/
 
-#include "vague.h"
+/*#include "vague.h"*/
 #include "node.h"
 #include "tour.h"
-#include "texture.h"
+/*#include "texture.h"*/
 #include "monstre.h"
 
 
@@ -32,8 +32,8 @@ l_Monstre ajouterMonstre(l_Monstre liste, l_node listeNode, int idMonstre, int v
     nouvelElement->dest = listeNode->next;
     nouvelElement->oldDest = listeNode;
     nouvelElement->vie = vie;
-    nouvelElement->idMonstre = idMonstre;
-    nouvelElement->typeMonstre = typeMonstre;
+    nouvelElement->idmonstre = idMonstre;
+    nouvelElement->typemonstre = typeMonstre;
     nouvelElement->resistTour1 = resistTour1;
     nouvelElement->resistTour2 = resistTour2;
     nouvelElement->resistTour3 = resistTour3;
@@ -63,21 +63,21 @@ l_Monstre supprimerMonstre(l_Monstre liste, int idMonstre){
         return NULL;
 
     /* Si l'élément doit être supprimé */
-    if(liste->idMonstre == idMonstre)
+    if(liste->idmonstre == idMonstre)
     {
 
-	glColor3ub(255,25,25);
-	glTranslatef(liste->x,liste->y,1);
-	glBegin(GL_POLYGON);
+    glColor3ub(255,25,25);
+    glTranslatef(liste->x,liste->y,1);
+    glBegin(GL_POLYGON);
         glVertex2f(0,10);
-     	glVertex2f(-0, 20);
+        glVertex2f(-0, 20);
         glVertex2f(-30, 0);
         glVertex2f(0, -20);
-	glVertex2f(5,30);
-     	glVertex2f(-20, 2);
+    glVertex2f(5,30);
+        glVertex2f(-20, 2);
         glVertex2f(-23, -17);
         glVertex2f(20, 0);
-   	glEnd();
+    glEnd();
         /* On le supprime en mémorisant
          l'adresse de l'élément suivant */
         Monstre* tmp = liste->next;
@@ -228,57 +228,57 @@ void AfficherMonstre (l_Monstre liste, int vague, int * bouge){
         if(liste->go == 1){
             if(vague == 5 ){
                 glBindTexture(GL_TEXTURE_2D, 9);
-		DessinMonstre(liste, vague, mouv);
+        DessinMonstre(liste, vague, mouv);
             }else if(vague == 10){
                 glBindTexture(GL_TEXTURE_2D, 13);
-		DessinMonstre(liste, vague, mouv);
+        DessinMonstre(liste, vague, mouv);
             }else if(vague == 15){
                 glBindTexture(GL_TEXTURE_2D, 13);
-		DessinMonstre(liste, vague, mouv);
+        DessinMonstre(liste, vague, mouv);
             }else if(vague == 20){
                 glBindTexture(GL_TEXTURE_2D, 13);
-		DessinMonstre(liste, vague, mouv);
+        DessinMonstre(liste, vague, mouv);
             }else{
-		if(liste->idMonstre == 0){
-               		 glBindTexture(GL_TEXTURE_2D, 14);
-               		 DessinMonstre(liste, vague, mouv);
-            	}
-           	if(liste->idMonstre == 1){
-                	glBindTexture(GL_TEXTURE_2D, 17);
-                	DessinMonstre(liste, vague, mouv);
-            	}
-            	if(liste->idMonstre == 2){
-                	glBindTexture(GL_TEXTURE_2D, 14);
-                	DessinMonstre(liste, vague, mouv);
-            	}
-            	if(liste->idMonstre == 3){
-                	glBindTexture(GL_TEXTURE_2D, 15);
-                	DessinMonstre(liste, vague, mouv);
-            	}
-            	if(liste->idMonstre == 4){
+        if(liste->idmonstre == 0){
+                     glBindTexture(GL_TEXTURE_2D, 14);
+                     DessinMonstre(liste, vague, mouv);
+                }
+            if(liste->idmonstre == 1){
+                    glBindTexture(GL_TEXTURE_2D, 17);
+                    DessinMonstre(liste, vague, mouv);
+                }
+                if(liste->idmonstre == 2){
+                    glBindTexture(GL_TEXTURE_2D, 14);
+                    DessinMonstre(liste, vague, mouv);
+                }
+                if(liste->idmonstre == 3){
+                    glBindTexture(GL_TEXTURE_2D, 15);
+                    DessinMonstre(liste, vague, mouv);
+                }
+                if(liste->idmonstre == 4){
                         glBindTexture(GL_TEXTURE_2D, 16);
-                    	DessinMonstre(liste, vague, mouv);
-            	}
-            	if(liste->idMonstre == 5){
-                	glBindTexture(GL_TEXTURE_2D, 17);
-                	DessinMonstre(liste, vague, mouv);
-            	}
-            	if(liste->idMonstre == 6){
-                	glBindTexture(GL_TEXTURE_2D, 18);
-                	DessinMonstre(liste, vague, mouv);
-            	}
-            	if(liste->idMonstre == 7){
-                	glBindTexture(GL_TEXTURE_2D, 19);
-                	DessinMonstre(liste, vague, mouv);
-            	}
-            	if(liste->idMonstre == 8){
-                	glBindTexture(GL_TEXTURE_2D, 17);
-                	DessinMonstre(liste, vague, mouv);
-            	}
-            	if(liste->idMonstre == 9){
-            	    glBindTexture(GL_TEXTURE_2D, 15);
-            	    DessinMonstre(liste, vague, mouv);
-            	}
+                        DessinMonstre(liste, vague, mouv);
+                }
+                if(liste->idmonstre == 5){
+                    glBindTexture(GL_TEXTURE_2D, 17);
+                    DessinMonstre(liste, vague, mouv);
+                }
+                if(liste->idmonstre == 6){
+                    glBindTexture(GL_TEXTURE_2D, 18);
+                    DessinMonstre(liste, vague, mouv);
+                }
+                if(liste->idmonstre == 7){
+                    glBindTexture(GL_TEXTURE_2D, 19);
+                    DessinMonstre(liste, vague, mouv);
+                }
+                if(liste->idmonstre == 8){
+                    glBindTexture(GL_TEXTURE_2D, 17);
+                    DessinMonstre(liste, vague, mouv);
+                }
+                if(liste->idmonstre == 9){
+                    glBindTexture(GL_TEXTURE_2D, 15);
+                    DessinMonstre(liste, vague, mouv);
+                }
             }
 
 
@@ -311,20 +311,20 @@ void DessinMonstre(l_Monstre liste, int vague, int mouv){
 
     glBindTexture(GL_TEXTURE_2D, 0);
 
-    //vie = vague*10000
+    //vie = vague*1000
     glColor3ub(50, 255, 20);
     glBegin(GL_QUADS);
-    glVertex2f((liste->vie)*40/(vague*10000)-20,-25);
+    glVertex2f((liste->vie)*40/(vague*1000)-20,-25);
     glVertex2f(-20,-25);
     glVertex2f(-20,-20);
-    glVertex2f((liste->vie)*40/(vague*10000)-20,-20);
+    glVertex2f((liste->vie)*40/(vague*1000)-20,-20);
     glEnd();
 
     glColor3ub(230, 50, 20);
     glBegin(GL_QUADS);
     glVertex2f(20,-25);
-    glVertex2f((liste->vie)*40/(vague*10000)-20,-25);
-    glVertex2f((liste->vie)*40/(vague*10000)-20,-20);
+    glVertex2f((liste->vie)*40/(vague*1000)-20,-25);
+    glVertex2f((liste->vie)*40/(vague*1000)-20,-20);
     glVertex2f(20,-20);
     glEnd();
 

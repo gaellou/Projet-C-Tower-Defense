@@ -19,9 +19,10 @@ typedef struct s_Monstre{
     float resistTour3;
     float resistTour4;
     int go;
-    struct s_monstre* next;
+    struct s_Monstre* next;
 } Monstre;
 typedef Monstre* l_Monstre;
+
 
 l_Monstre ajoutermonstre(l_Monstre liste, l_node listeNode, int idmonstre, int vie, int typemonstre, float resistTour1,float resistTour2,float resistTour3,float resistTour4);
 l_Monstre supprimermonstre(l_Monstre liste, int idmonstre);

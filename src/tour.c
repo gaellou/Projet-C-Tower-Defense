@@ -15,7 +15,6 @@
 #include "tour.h"
 
 
-
 /*AJOUTER TOUR*/
 
 l_Tour ajouterTour(l_Tour liste, int* coins, int x, int y,int type, char** message){
@@ -82,7 +81,7 @@ l_Tour ajouterTour(l_Tour liste, int* coins, int x, int y,int type, char** messa
         }
         nouvelElement->x = x;
         nouvelElement->y = y;
-        nouvelElement->rayon = ray;
+        nouvelElement->ray = ray;
         nouvelElement->cost = cost;
         nouvelElement->type = type;
         nouvelElement->puissance = puissance; //cout infligé
@@ -241,7 +240,7 @@ void afficherTour(l_Tour liste, int ray, l_Tour TourSelected){
             glBegin(GL_LINE_LOOP);
             for(i=0; i<30; i++){
                 //angle = 2*M_PI*i/30;
-                glVertex2f( cos(2*M_PI*i/30)*(tmp->rayon), sin(2*M_PI*i/30)*(tmp->rayon));
+                glVertex2f( cos(2*M_PI*i/30)*(tmp->ray), sin(2*M_PI*i/30)*(tmp->ray));
             }
             glEnd();
 
@@ -339,7 +338,7 @@ void gestionTour(l_Tour listeTour, l_Monstre listeMonstre){
                     distanceCible = sqrt(((tmpTour->x)-(Cible->x))*((tmpTour->x)-(Cible->x))+((tmpTour->y)-(Cible->y))*((tmpTour->y)-(Cible->y)));
                     distance = sqrt(((tmpTour->x)-(tmpMonstre->x))*((tmpTour->x)-(tmpMonstre->x))+((tmpTour->y)-(tmpMonstre->y))*((tmpTour->y)-(tmpMonstre->y)));
                     //si la Tour est de type 3 (jaune) elle tir sur tout le monde en meme temps
-                    if(tmpTour->type==3 && distance<tmpTour->rayon){
+                    if(tmpTour->type==3 && distance<tmpTour->ray){
 
                         glBegin(GL_LINES);
                         glColor3f(0.0,1.0,0.0);
@@ -361,11 +360,11 @@ void gestionTour(l_Tour listeTour, l_Monstre listeMonstre){
 
             //le montre perd de la vie s'il est dans le rayon d action de la Tour
             //sauf si la Tour est de type 3 car a déjà perdu de la vie
-            if(distanceCible<(tmpTour->rayon) && tmpTour->type!=3){
+            if(distanceCible<(tmpTour->ray) && tmpTour->type!=3){
                 Cible->vie=(Cible->vie)-(tmpTour->puissance*resistTour);
             }
             // si on est dans le rayon d action de la Tour
-            if(distanceCible<tmpTour->rayon && tmpTour->type!=3){
+            if(distanceCible<tmpTour->ray && tmpTour->type!=3){
                 //dessin de tir
                 glBegin(GL_LINES);
                 glColor3f(1.0f,0.0,0.0);

@@ -4,10 +4,14 @@
 
 #include "monstre.h"
 
+
+/*AJOUTER TOUR*/
+
+
 typedef struct s_Tour{
     int x; //position
     int y;
-    int rayon;
+    int ray;
     int cost;
     int type;
     int puissance;
@@ -26,6 +30,6 @@ l_Tour selectTour(l_Tour liste, int x, int y, char** message);
 void glisserTour(int x, int y, int type);
 l_Tour supprimerTour(l_Tour liste, l_Tour aSuppr);
 void afficherTour(l_Tour liste, int ray, l_Tour TourSelected);
-void gestionTour(l_Tour listeTour, l_monstre listemonstre);
+void gestionTour(l_Tour listeTour, l_Monstre listemonstre);
 
 #endif
