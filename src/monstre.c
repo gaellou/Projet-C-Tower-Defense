@@ -11,7 +11,7 @@
 
 #include <SDL/SDL_ttf.h> /*bibliothèque texte*/
 
-/*#include "vague.h"*/
+#include "vague.h"
 #include "node.h"
 #include "tour.h"
 /*#include "texture.h"*/
