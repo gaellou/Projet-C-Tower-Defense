@@ -123,8 +123,8 @@ void deplaceMonstre (l_Monstre liste, float timeVague, int vague, char** message
     }
 
     while (liste!=NULL) {
-        //permet de evoyer les Monstre 1 a 1, Monstre avec idMonstre==1 demarre a la premiere seconde...
-        if(liste->next == NULL || fabs(liste->next->x-liste->x)>50 || fabs(liste->next->y-liste->y)>50){
+        //permet de evoyer les Monstre 1 a 1, Monstre avec idMonstre==1 demarre a la premiere seconde
+        if(liste->next == NULL || fabs((liste->next->x)-liste->x)>50 || fabs((liste->next->y)-liste->y)>50){
             liste->go = 1;
         }
         if(liste->go == 1){
@@ -155,7 +155,7 @@ void deplaceMonstre (l_Monstre liste, float timeVague, int vague, char** message
                         //printf("bas en haut\n");
                         liste->y=(liste->y+vitesse);
                         liste->x=(liste->oldDest->x)-((float)((liste->oldDest->y)-(liste->y))*penteOldDestDest);
-                        liste->direction = 4;
+                        /*liste->direction = 4;*/
                     }
                     //haut en bas en haut
                     if((liste->dest->y)-(liste->y)<0){
@@ -163,13 +163,13 @@ void deplaceMonstre (l_Monstre liste, float timeVague, int vague, char** message
                         //printf("haut en bas : %f\n",(liste->oldDest->x)-(float)((liste->oldDest->y)-(liste->y))*penteOldDestDest);
                         liste->y=(liste->y-vitesse);
                         liste->x=(liste->oldDest->x)-((float)((liste->oldDest->y)-(liste->y))*penteOldDestDest);
-                        liste->direction = 1;
+                        /*liste->direction = 1;*/
                     }
                 }else{
                     //gauche a droite
                     //printf("gauche a droite\n");
                     liste->y=(liste->oldDest->y)+((float)((liste->x)-(liste->oldDest->x))*penteOldDestDest);
-                    liste->direction = 3;
+                   /* liste->direction = 3;*/
                 }
 
 
@@ -186,7 +186,7 @@ void deplaceMonstre (l_Monstre liste, float timeVague, int vague, char** message
                         //printf("bas en haut\n");
                         liste->y=(liste->y+vitesse);
                         liste->x=(liste->oldDest->x)-((float)((liste->oldDest->y)-(liste->y))*penteOldDestDest);
-                        liste->direction = 4;
+                        /*liste->direction = 4;*/
                     }
                     //haut en bas en haut
                     if((liste->dest->y)-(liste->y)<0){
@@ -194,24 +194,24 @@ void deplaceMonstre (l_Monstre liste, float timeVague, int vague, char** message
                         //printf("haut en bas : %f\n",(liste->oldDest->x)-(float)((liste->oldDest->y)-(liste->y))*penteOldDestDest);
                         liste->y=(liste->y-vitesse);
                         liste->x=(liste->oldDest->x)-((float)((liste->oldDest->y)-(liste->y))*penteOldDestDest);
-                        liste->direction = 1;
+                        /*liste->direction = 1;*/
                     }
                 }else{
                     //droite a gauche
                     //printf("droite a gauche : \n");
                     liste->y=(liste->oldDest->y)-((float)((liste->oldDest->x)-(liste->x))*penteOldDestDest);
-                    liste->direction = 2;
+                    /*liste->direction = 2;*/
                 }
             }
             //bas en haut
             if((liste->dest->x)-(liste->x)==0 && (liste->dest->y)-(liste->y)>0){
                 liste->y=(liste->y+vitesse);
-                liste->direction = 4;
+                /*liste->direction = 4;*/
             }
             //haut en bas
             if((liste->dest->x)-(liste->x)==0 && (liste->dest->y)-(liste->y)<0){
                 liste->y=(liste->y-vitesse);
-                liste->direction = 1;
+                /*liste->direction = 1;*/
             }
 
         }

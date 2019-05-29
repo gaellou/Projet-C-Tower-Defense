@@ -15,9 +15,9 @@
 #include "node.h"
 #include "monstre.h"
 
-//generation de vague de monstre de differente resistance au differents types de tour//
+//generation de vague de monstre de differente resistance au differents types de tour suivant l'avancé du jeu//
 
-l_Monstre genereVague(int vague, l_Monstre monst, int nbMonstre){
+l_Monstre genereVague(int vague, l_Monstre monst, int nbMonstre, l_node ma_liste){
 	float resistTour1 = 1;
 	float resistTour2 = 1;
 	float resistTour3 = 1;
@@ -40,7 +40,7 @@ l_Monstre genereVague(int vague, l_Monstre monst, int nbMonstre){
 	}
 	int idmonstre=0;
     int vie = vague*1000;
-    for(idmonstre=0;idmonstre<nbMonster;idmonstre++){
+    for(idmonstre=0;idmonstre<nbMonstre;idmonstre++){
         monst=ajouterMonster(monst, ma_liste, idmonstre, vie, 1, resistTour1, resistTour2, resistTour3, resistTour4);
     }
     return monst;

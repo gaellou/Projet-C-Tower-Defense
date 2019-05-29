@@ -1,39 +1,46 @@
-CC = gcc
-CFLAGS = -Wall -O2 -g 
-LDFLAGS =  -framework SDL -framework Cocoa -framework OpenGL -framework SDL -framework SDL_image -framework SDL_ttf -framework SDL_mixer -framework FreeType
+CC			= gcc
+CFLAGS	= -Wall -O2 -g
+LDFLAGS	= -lSDL -lSDL_image -lGLU -lGL -lm
 
-APP_BIN = itd
+BINDIR	= bin/
+SRCDIR	= src/
+OBJDIR	= obj/
 
-SRC_PATH = src
-OBJ_PATH = obj
+# Fichiers TD 04
 
-BIN_PATH = bin
-LIB_PATH = lib
+# Fichiers exercice 01
+OBJ_TD04_EX01= ex01/td04_ex01.o
+EXEC_TD04_EX01= td04_ex01.out
 
-SRC_FILES = $(shell find $(SRC_PATH) -type f -name '*.c')
-OBJ_FILES = $(patsubst $(SRC_PATH)/%.c,$(OBJ_PATH)/%.o, $(SRC_FILES))
+# Fichiers exercice 02
+OBJ_TD04_EX02= ex02/td04_ex02.o
+EXEC_TD04_EX02= td04_ex02.out
 
-all: $(APP_BIN)
+# Fichiers exercice 03
+OBJ_TD04_EX03= ex03/td04_ex03.o
+EXEC_TD04_EX03= td04_ex03.out
 
-$(APP_BIN): $(OBJ_FILES)
-	@mkdir -p $(BIN_PATH)
-	$(CC) -o $(BIN_PATH)/$(APP_BIN) $(OBJ_FILES) SDLMain.m $(LDFLAGS)
-	@echo "--------------------------------------------------------------"
-	@echo "       Pour exécuter le programme taper : bin/$(APP_BIN)      "
-	@echo "--------------------------------------------------------------"
 
-$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
-	@mkdir -p "$(@D)"
-	$(CC) -c $< -o $@ $(CFLAGS) $(INC_PATH)
+# Regles compilation TD 04
 
-clean:
-	rm $(OBJ_FILES) $(BIN_PATH)/$(APP_BIN)
-	@echo "--------------------------------------------------------------"
-	@echo "             clean le dossier bin & les objets             "
-	@echo "--------------------------------------------------------------"
+all :
 
-tar: clean
-	tar -pvczf pokimacTowerDefense.tar.gz ./*
-	@echo "------------------------------------------------------------------"
-	@echo "  Création d'un fichier tar.gz final : TowerDefense.tar.gz "
-	@echo "------------------------------------------------------------------" 
+ex01 : $(OBJDIR)$(OBJ_TD04_EX01)
+	$(CC) $(CFLAGS) $(OBJDIR)$(OBJ_TD04_EX01) -o $(BINDIR)$(EXEC_TD04_EX01) $(LDFLAGS)
+
+ex02 : $(OBJDIR)$(OBJ_TD04_EX02)
+	$(CC) $(CFLAGS) $(OBJDIR)$(OBJ_TD04_EX02) -o $(BINDIR)$(EXEC_TD04_EX02) $(LDFLAGS)
+
+ex03 : $(OBJDIR)$(OBJ_TD04_EX03)
+	$(CC) $(CFLAGS) $(OBJDIR)$(OBJ_TD04_EX03) -o $(BINDIR)$(EXEC_TD04_EX03) $(LDFLAGS)
+
+
+clean :
+	rm -rf *~
+	rm -rf $(SRCDIR)*/*~
+	rm -rf $(OBJDIR)
+	rm -rf $(BINDIR)*
+
+$(OBJDIR)%.o: $(SRCDIR)%.c
+	mkdir -p `dirname $@`
+	$(CC) -o $@ -c $< $(CFLAGS)

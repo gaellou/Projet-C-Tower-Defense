@@ -11,7 +11,7 @@ typedef struct s_Monstre{
     node * oldDest;
     int vitesse;
     int vie;
-    int direction; // orientation du sprite
+    int direction; // orientation du sprite (à venir si possible)
     int idmonstre; //orde dans la vague
     int typemonstre;
     float resistTour1;
@@ -19,7 +19,7 @@ typedef struct s_Monstre{
     float resistTour3;
     float resistTour4;
     int go;
-    struct s_monstre* next;
+    struct s_Monstre* next;
 } Monstre;
 typedef Monstre* l_Monstre;
 

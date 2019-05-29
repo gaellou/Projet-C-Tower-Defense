@@ -69,10 +69,14 @@ l_Tour ajouterTour(l_Tour liste, int* coins, int x, int y,int type, char** messa
         }
         tmpTour = tmpTour->next;
     }
+
+//test monaie
     if(*coins-cost < 0){
         *message = "Manque de coins !!!";
         error = 1;
     }
+
+//erreur d'allocation
     if(error == 0){
         Tour* nouvelElement = (Tour*)(malloc(sizeof(Tour)));
         if(nouvelElement == NULL){
@@ -112,7 +116,7 @@ l_Tour ajouterTour(l_Tour liste, int* coins, int x, int y,int type, char** messa
 
 }
 
-
+//permet de placer la tour en glissant la sourie
 void glisserTour(int x, int y, int type){
     int ray = 0;
     switch(type) {
