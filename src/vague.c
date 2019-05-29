@@ -41,7 +41,7 @@ l_Monstre genereVague(int vague, l_Monstre monst, int nbMonstre, l_node ma_liste
 	int idmonstre=0;
     int vie = vague*1000;
     for(idmonstre=0;idmonstre<nbMonstre;idmonstre++){
-        monst=ajouterMonster(monst, ma_liste, idmonstre, vie, 1, resistTour1, resistTour2, resistTour3, resistTour4);
+        monst=ajouterMonstre(monst, ma_liste, idmonstre, vie, 1, resistTour1, resistTour2, resistTour3, resistTour4);
     }
     return monst;
 }

@@ -29,7 +29,7 @@
 
 static unsigned int WINDOW_WIDTH = 1000;
 static unsigned int WINDOW_HEIGHT = 800;
-//static unsigned int PIXEL_WIDTH = 1000; INUTILISÉ
+
 static unsigned int PIXEL_HEIGHT = 800;
 
 static const Uint32 FRAMERATE_MILLISECONDS = 1000 / 60;
@@ -101,9 +101,9 @@ int main(int argc, char** argv) {
         fclose ( fIn );
     }
 
-    /*--------------------------------------------------------------
-                    VALIDATION FICHIER ITD.
-     --------------------------------------------------------------*/
+    /*---------------------------------------------------------------------------------------
+                    VALIDATION FICHIER ITD PAS IMPLEMENTEE ON CHARGE DIRECTEMENT LA MAP
+     ----------------------------------------------------------------------------------------*/
 
     //Initialisation des tableaux rgb grâce à GLubyte
     GLubyte couleurConstruct[3] = {255,200,80};
@@ -118,7 +118,7 @@ int main(int argc, char** argv) {
 
     l_node ma_liste = NULL;
     //On ajoute les coordonnées des noeuds
-    ma_liste = addCoordNoeud(fileName);
+    ma_liste = addCoordNoeud(fileName); //dans fichier map
 
 
 
@@ -310,7 +310,7 @@ int main(int argc, char** argv) {
         //on retire le curseur de base
         SDL_ShowCursor(0);
         //Affiche le curseur.
-        afficherMouse(xMove, yMove, PIXEL_HEIGHT);
+        //afficherMouse(xMove, yMove, PIXEL_HEIGHT);
 
         SDL_GL_SwapBuffers();
         /* ****** */

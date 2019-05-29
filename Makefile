@@ -32,7 +32,7 @@ clean:
 	@echo "--------------------------------------------------------------"
 
 tar: clean
-	tar -pvczf pokimacTowerDefense.tar.gz ./*
+	tar -pvczf TowerDefense.tar.gz ./*
 	@echo "------------------------------------------------------------------"
-	@echo "  Creation of a compressed version tar.gz : pokimacTowerDefense   "
+	@echo "  Creation of a compressed version tar.gz : TowerDefense   "
 	@echo "------------------------------------------------------------------"
