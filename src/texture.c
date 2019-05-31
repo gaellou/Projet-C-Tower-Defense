@@ -131,7 +131,7 @@ GLuint* texture(int **tab, char** nomFichierImage){
 	    fprintf(stderr,"impossible de charger l'image %s\n", Filename);
 	}
 	else{
-	    printf("ca marche bien\n");
+	    printf("ok !\n");
 	}
 
 
@@ -226,7 +226,7 @@ GLuint* texture(int **tab, char** nomFichierImage){
 	    fprintf(stderr,"impossible de charger l'image %s\n", Filename2);
 	}
 	else{
-	    printf("ca marche bien\n");
+	    printf("ok\n");
 	}
 
     glBindTexture(GL_TEXTURE_2D, textureId[1]);
@@ -291,7 +291,7 @@ GLuint* texture(int **tab, char** nomFichierImage){
 	    fprintf(stderr,"impossible de charger l'image %s\n", Filename4);
 	}
 	else{
-	    printf("ca marche bien\n");
+	    printf("ok\n");
 	}
 
     glBindTexture(GL_TEXTURE_2D, textureId[3]);
@@ -404,7 +404,7 @@ GLuint* texture(int **tab, char** nomFichierImage){
 	    fprintf(stderr,"impossible de charger l'image %s\n", Filename9);
 	}
 	else{
-	    printf("perso\n");
+	    printf("ok\n");
 	}
     glBindTexture(GL_TEXTURE_2D, textureId[8]);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -441,7 +441,7 @@ GLuint* texture(int **tab, char** nomFichierImage){
 	    fprintf(stderr,"impossible de charger l'image %s\n", Filename11);
 	}
 	else{
-	    printf("perso\n");
+	    printf("ok\n");
 	}
     glBindTexture(GL_TEXTURE_2D, textureId[11]);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -477,7 +477,7 @@ GLuint* texture(int **tab, char** nomFichierImage){
 	    fprintf(stderr,"impossible de charger l'image %s\n", Filename12);
 	}
 	else{
-	    printf("mechant 2\n");
+	    printf("ok\n");
 	}
     glBindTexture(GL_TEXTURE_2D, textureId[12]);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
