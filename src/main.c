@@ -20,12 +20,12 @@
 #include "node.h"
 #include "tour.h"
 #include "monstre.h"
-//#include "texture.h"
-//#include "carte.h"
+#include "texture.h"
 
-//#include "texte.h"
+
+#include "texte.h"
 #include "chemin.h"
-//#include "map.h"
+#include "map.h"
 
 static unsigned int WINDOW_WIDTH = 1000;
 static unsigned int WINDOW_HEIGHT = 800;
