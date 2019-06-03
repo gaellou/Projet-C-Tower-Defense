@@ -4,5 +4,5 @@
 
 void reshape();
 void setVideoMode();
-
+void afficherMouse(int xMove, int yMove, int PIXEL_HEIGHT);
 #endif

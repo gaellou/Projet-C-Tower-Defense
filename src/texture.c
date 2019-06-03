@@ -119,7 +119,7 @@ GLuint* texture(int **tab, char** nomFichierImage){
     //map
     GLuint *textureId;
     textureId = (GLuint*)(malloc(50*sizeof(GLuint)));
-    GLenum format;
+    GLenum format = GL_RGBA;
     //Concerne le chargement de texture.
     glGenTextures(30, textureId);
     //1
@@ -131,44 +131,39 @@ GLuint* texture(int **tab, char** nomFichierImage){
 	    fprintf(stderr,"impossible de charger l'image %s\n", Filename);
 	}
 	else{
-	    printf("ok !\n");
+	    printf("map ok !\n");
 	}
 
 
     glBindTexture(GL_TEXTURE_2D, textureId[0]);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
+    format = GL_RGBA;
 	Uint8 nOfColors = image->format->BytesPerPixel;
-	if (nOfColors == 4)     // contains an alpha channel
-	{
-        if (image->format->Rmask == 0x000000ff)
-            format = GL_RGBA;
-        else
-	    	format = GL_BGRA;
-	} else if (nOfColors == 3)     // no alpha channel
-	{
-        if (image->format->Rmask == 0x000000ff)
+     switch(image->format->BytesPerPixel) {
+        case 1:
+            format = GL_RED;
+            break;
+        case 3:
             format = GL_RGB;
-        else
-            format = GL_BGR;
-	} else {
-        printf("warning: the image is not truecolor..  this will probably break\n");
-        // this error should not go unhandled
-	}
+            break;
+        case 4:
+            format = GL_RGBA;
+            break;
+        default:
+            fprintf(stderr, "Format des pixels de l'image non supporte.\n");
+            return EXIT_FAILURE;
+    }
 
-    /////////////////////////////
-    ////Gestion re-mapping///////
-    ////////////////////////////
 
-    Uint32 pixel;
+    /*Uint32 pixel;
     Uint8 r,g,b,a;
     int x,y;
     int ecartType = 50;
     int valConstr = 1;
     int valNonConstr = 0;
 
-    SDL_LockSurface(image); /*On bloque la surface*/
+    SDL_LockSurface(image); /*On bloque la surface
     for (y=0;y<730;y++)
     {
         for (x=0;x<1000;x++)
@@ -176,20 +171,18 @@ GLuint* texture(int **tab, char** nomFichierImage){
             pixel = obtenirPixel(image,x,y);
             SDL_GetRGBA(pixel, image->format, &r, &g, &b, &a);
 
-            /*Ici, on mettra du code pour modifier les composantes du pixel.*/
+            /*Ici, on mettra du code pour modifier les composantes du pixel.
             if(r >= 255-ecartType && g <= 0+ecartType && b>=255-ecartType){
-                //printf("couleur r : %d g : %d b : %d et %d\n",r, g, b, a);
-                //printf("couleur X : %d Y : %d\n", x, y);
+              
                 //On place la valeur qui définit s'il est possible de construire ou non.
                 tab[y][x] = valConstr;
 
                 //valeurs remapping
-                r = 184;
+                r = 255;
                 g = 200;
-                b = 224;
+                b = 80;
                 a = 255;
-
-                /*Et une fois qu'on les a modifiés :*/
+                /*Et une fois qu'on les a modifiés :
                 pixel = SDL_MapRGBA(image->format, r, g, b, a);
                 //printf("couleur r : %d g : %d b : %d et %d\n",r, g, b, a);
 
@@ -197,22 +190,13 @@ GLuint* texture(int **tab, char** nomFichierImage){
                 //On place la valeur qui définit qu'il est impossible de construire.
                 tab[y][x] = valNonConstr;
             }
-            /*Et pour changer la valeur d'un pixel :*/
+            /*Et pour changer la valeur d'un pixel : 
             definirPixel(image,x,y,pixel);
         }
     }
     SDL_UnlockSurface(image); /*On libère la surface, elle peut être utilisée*/
 
-    /*
-     for (y=0;y<image->h;y++)
-     {
-     for (x=0;x<image->w;x++)
-     {
-         printf("%d\t", tab[y][x]);
-         printf("\n");
-     }
-     }
-    */
+
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image->w, image->h, 0, format,GL_UNSIGNED_BYTE, image->pixels);
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -226,7 +210,7 @@ GLuint* texture(int **tab, char** nomFichierImage){
 	    fprintf(stderr,"impossible de charger l'image %s\n", Filename2);
 	}
 	else{
-	    printf("ok\n");
+	    printf("monstre1 ok\n");
 	}
 
     glBindTexture(GL_TEXTURE_2D, textureId[1]);
@@ -234,55 +218,45 @@ GLuint* texture(int **tab, char** nomFichierImage){
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 	nOfColors = image->format->BytesPerPixel;
-	if (nOfColors == 4)     // contains an alpha channel
-	{
-        if (image->format->Rmask == 0x000000ff)
-            format = GL_RGBA;
-        else
-	    	format = GL_BGRA;
-	} else if (nOfColors == 3)     // no alpha channel
-	{
-        if (image->format->Rmask == 0x000000ff)
+    switch(image->format->BytesPerPixel) {
+        case 1:
+            format = GL_RED;
+            break;
+        case 3:
             format = GL_RGB;
-        else
-            format = GL_BGR;
-	} else {
-        printf("warning: the image is not truecolor..  this will probably break\n");
-        // this error should not go unhandled
-	}
+            break;
+        case 4:
+            format = GL_RGBA;
+            break;
+        default:
+            fprintf(stderr, "Format des pixels de l'image non supporte.\n");
+            return EXIT_FAILURE;
+    }
+
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->w, image->h, 0, format, GL_UNSIGNED_BYTE, image->pixels);
+
     glBindTexture(GL_TEXTURE_2D, 0);
+
     SDL_FreeSurface(image);
+
 
    
-
+printf("0\n");
     glBindTexture(GL_TEXTURE_2D, textureId[2]);
+    printf("1\n");
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    printf("2\n");
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	nOfColors = image->format->BytesPerPixel;
-	if (nOfColors == 4)     // contains an alpha channel
-	{
-        if (image->format->Rmask == 0x000000ff)
-            format = GL_RGBA;
-        else
-	    	format = GL_BGRA;
-	} else if (nOfColors == 3)     // no alpha channel
-	{
-        if (image->format->Rmask == 0x000000ff)
-            format = GL_RGB;
-        else
-            format = GL_BGR;
-	} else {
-        printf("warning: the image is not truecolor..  this will probably break\n");
-        // this error should not go unhandled
-	}
-
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->w, image->h, 0, format, GL_UNSIGNED_BYTE, image->pixels);
+    printf("3\n");
+printf("4\n");
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->w, image->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, image->pixels);
+printf("(5)\n" );
     glBindTexture(GL_TEXTURE_2D, 0);
-    SDL_FreeSurface(image);
-
+    printf("6\n");
+    //SDL_FreeSurface(image);
+    printf("7\n");
+printf("chargement tour\n");
     //tour
     char *Filename4 = "images/Tour/tours.png";
     // chargement image
@@ -291,7 +265,7 @@ GLuint* texture(int **tab, char** nomFichierImage){
 	    fprintf(stderr,"impossible de charger l'image %s\n", Filename4);
 	}
 	else{
-	    printf("ok\n");
+	    printf("tours ok\n");
 	}
 
     glBindTexture(GL_TEXTURE_2D, textureId[3]);
@@ -299,22 +273,21 @@ GLuint* texture(int **tab, char** nomFichierImage){
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 	nOfColors = image->format->BytesPerPixel;
-	if (nOfColors == 4)     // contains an alpha channel
-	{
-        if (image->format->Rmask == 0x000000ff)
-            format = GL_RGBA;
-        else
-	    	format = GL_BGRA;
-	} else if (nOfColors == 3)     // no alpha channel
-	{
-        if (image->format->Rmask == 0x000000ff)
+    switch(image->format->BytesPerPixel) {
+        case 1:
+            format = GL_RED;
+            break;
+        case 3:
             format = GL_RGB;
-        else
-            format = GL_BGR;
-	} else {
-        printf("warning: the image is not truecolor..  this will probably break\n");
-        // this error should not go unhandled
-	}
+            break;
+        case 4:
+            format = GL_RGBA;
+            break;
+        default:
+            fprintf(stderr, "Format des pixels de l'image non supporte.\n");
+            return EXIT_FAILURE;
+    }
+
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->w, image->h, 0, format, GL_UNSIGNED_BYTE, image->pixels);
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -338,22 +311,21 @@ GLuint* texture(int **tab, char** nomFichierImage){
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 	nOfColors = image->format->BytesPerPixel;
-	if (nOfColors == 4)     // contains an alpha channel
-	{
-        if (image->format->Rmask == 0x000000ff)
-            format = GL_RGBA;
-        else
-	    	format = GL_BGRA;
-	} else if (nOfColors == 3)     // no alpha channel
-	{
-        if (image->format->Rmask == 0x000000ff)
+    switch(image->format->BytesPerPixel) {
+        case 1:
+            format = GL_RED;
+            break;
+        case 3:
             format = GL_RGB;
-        else
-            format = GL_BGR;
-	} else {
-        printf("warning: the image is not truecolor..  this will probably break\n");
-        // this error should not go unhandled
-	}
+            break;
+        case 4:
+            format = GL_RGBA;
+            break;
+        default:
+            fprintf(stderr, "Format des pixels de l'image non supporte.\n");
+            return EXIT_FAILURE;
+    }
+
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->w, image->h, 0, format, GL_UNSIGNED_BYTE, image->pixels);
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -375,22 +347,20 @@ GLuint* texture(int **tab, char** nomFichierImage){
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 	nOfColors = image->format->BytesPerPixel;
-	if (nOfColors == 4)     // contains an alpha channel
-	{
-        if (image->format->Rmask == 0x000000ff)
-            format = GL_RGBA;
-        else
-	    	format = GL_BGRA;
-	} else if (nOfColors == 3)     // no alpha channel
-	{
-        if (image->format->Rmask == 0x000000ff)
+    switch(image->format->BytesPerPixel) {
+        case 1:
+            format = GL_RED;
+            break;
+        case 3:
             format = GL_RGB;
-        else
-            format = GL_BGR;
-	} else {
-        printf("warning: the image is not truecolor..  this will probably break\n");
-        // this error should not go unhandled
-	}
+            break;
+        case 4:
+            format = GL_RGBA;
+            break;
+        default:
+            fprintf(stderr, "Format des pixels de l'image non supporte.\n");
+            return EXIT_FAILURE;
+    }
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->w, image->h, 0, format, GL_UNSIGNED_BYTE, image->pixels);
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -411,22 +381,20 @@ GLuint* texture(int **tab, char** nomFichierImage){
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 	nOfColors = image->format->BytesPerPixel;
-	if (nOfColors == 4)     // contains an alpha channel
-	{
-        if (image->format->Rmask == 0x000000ff)
-            format = GL_RGBA;
-        else
-	    	format = GL_BGRA;
-	} else if (nOfColors == 3)     // no alpha channel
-	{
-        if (image->format->Rmask == 0x000000ff)
+    switch(image->format->BytesPerPixel) {
+        case 1:
+            format = GL_RED;
+            break;
+        case 3:
             format = GL_RGB;
-        else
-            format = GL_BGR;
-	} else {
-        printf("warning: the image is not truecolor..  this will probably break\n");
-        // this error should not go unhandled
-	}
+            break;
+        case 4:
+            format = GL_RGBA;
+            break;
+        default:
+            fprintf(stderr, "Format des pixels de l'image non supporte.\n");
+            return EXIT_FAILURE;
+    }
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->w, image->h, 0, format, GL_UNSIGNED_BYTE, image->pixels);
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -448,26 +416,95 @@ GLuint* texture(int **tab, char** nomFichierImage){
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 	nOfColors = image->format->BytesPerPixel;
-	if (nOfColors == 4)     // contains an alpha channel
-	{
-        if (image->format->Rmask == 0x000000ff)
-            format = GL_RGBA;
-        else
-	    	format = GL_BGRA;
-	} else if (nOfColors == 3)     // no alpha channel
-	{
-        if (image->format->Rmask == 0x000000ff)
+    switch(image->format->BytesPerPixel) {
+        case 1:
+            format = GL_RED;
+            break;
+        case 3:
             format = GL_RGB;
-        else
-            format = GL_BGR;
-	} else {
-        printf("warning: the image is not truecolor..  this will probably break\n");
-        // this error should not go unhandled
-	}
+            break;
+        case 4:
+            format = GL_RGBA;
+            break;
+        default:
+            fprintf(stderr, "Format des pixels de l'image non supporte.\n");
+            return EXIT_FAILURE;
+    }
+
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->w, image->h, 0, format, GL_UNSIGNED_BYTE, image->pixels);
     glBindTexture(GL_TEXTURE_2D, 0);
     SDL_FreeSurface(image);
+
+char *FilenameWin = "images/scenario/youwin.png";
+    // chargement image
+    image=IMG_Load(Filename7);
+    if(image == NULL) {
+        fprintf(stderr,"impossible de charger l'image %s\n", FilenameWin);
+    }
+    else{
+        printf("start\n");
+    }
+
+    glBindTexture(GL_TEXTURE_2D, textureId[6]);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    nOfColors = image->format->BytesPerPixel;
+    switch(image->format->BytesPerPixel) {
+        case 1:
+            format = GL_RED;
+            break;
+        case 3:
+            format = GL_RGB;
+            break;
+        case 4:
+            format = GL_RGBA;
+            break;
+        default:
+            fprintf(stderr, "Format des pixels de l'image non supporte.\n");
+            return EXIT_FAILURE;
+    }
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->w, image->h, 0, format, GL_UNSIGNED_BYTE, image->pixels);
+    glBindTexture(GL_TEXTURE_2D, 0);
+    SDL_FreeSurface(image);
+
+    //img Lose
+    char *FilenameLose = "images/scenario/youloose.png";
+    // chargement image
+    image=IMG_Load(Filename8);
+    if(image == NULL) {
+        fprintf(stderr,"impossible de charger l'image %s\n", FilenameLose);
+    }
+    else{
+        printf("start\n");
+    }
+
+    glBindTexture(GL_TEXTURE_2D, textureId[7]);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    nOfColors = image->format->BytesPerPixel;
+     switch(image->format->BytesPerPixel) {
+        case 1:
+            format = GL_RED;
+            break;
+        case 3:
+            format = GL_RGB;
+            break;
+        case 4:
+            format = GL_RGBA;
+            break;
+        default:
+            fprintf(stderr, "Format des pixels de l'image non supporte.\n");
+            return EXIT_FAILURE;
+    }
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->w, image->h, 0, format, GL_UNSIGNED_BYTE, image->pixels);
+    glBindTexture(GL_TEXTURE_2D, 0);
+    SDL_FreeSurface(image);
+
+
 
     //img mechant 2
     char *Filename12 = "images/Monstre/guineapig3.png";
@@ -482,30 +519,31 @@ GLuint* texture(int **tab, char** nomFichierImage){
     glBindTexture(GL_TEXTURE_2D, textureId[12]);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
+    printf("10\n");
 	nOfColors = image->format->BytesPerPixel;
-	if (nOfColors == 4)     // contains an alpha channel
-	{
-        if (image->format->Rmask == 0x000000ff)
-            format = GL_RGBA;
-        else
-	    	format = GL_BGRA;
-	} else if (nOfColors == 3)     // no alpha channel
-	{
-        if (image->format->Rmask == 0x000000ff)
+     switch(image->format->BytesPerPixel) {
+        case 1:
+            format = GL_RED;
+            break;
+        case 3:
             format = GL_RGB;
-        else
-            format = GL_BGR;
-	} else {
-        printf("warning: the image is not truecolor..  this will probably break\n");
-        // this error should not go unhandled
-	}
+            break;
+        case 4:
+            format = GL_RGBA;
+            break;
+        default:
+            fprintf(stderr, "Format des pixels de l'image non supporte.\n");
+            return EXIT_FAILURE;
+    }
+
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->w, image->h, 0, format, GL_UNSIGNED_BYTE, image->pixels);
+    printf("11\n");
     glBindTexture(GL_TEXTURE_2D, 0);
-    SDL_FreeSurface(image);
+    printf("12\n");
+   // SDL_FreeSurface(image);
 
-    
+    printf("textures ok\n");
 
     return textureId;
 

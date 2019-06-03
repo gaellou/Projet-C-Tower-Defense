@@ -14,19 +14,22 @@
 #include "vague.h"
 #include "node.h"
 #include "tour.h"
-/*#include "texture.h"*/
+#include "texture.h"
 #include "monstre.h"
 
 
 
 /*AJOUTER MONSTRE*/
 
-l_Monstre ajouterMonstre(l_Monstre liste, l_node listeNode, int idMonstre, int vie, int typeMonstre, float resistTour1,float resistTour2,float resistTour3,float resistTour4){
+void ajouterMonstre(l_Monstre* liste, l_node listeNode, int idMonstre, int vie, int typeMonstre, float resistTour1,float resistTour2,float resistTour3,float resistTour4){
+    
+   
     Monstre* nouvelElement = (Monstre*)(malloc(sizeof(Monstre)));
     if(nouvelElement == NULL){
         fprintf(stderr, "Erreur allocation : Monstre\n");
         exit(EXIT_FAILURE);
     }
+    printf("début allocation montre\n");
     nouvelElement->x = listeNode->x;
     nouvelElement->y = listeNode->y;
     nouvelElement->dest = listeNode->next;
@@ -40,17 +43,26 @@ l_Monstre ajouterMonstre(l_Monstre liste, l_node listeNode, int idMonstre, int v
     nouvelElement->resistTour4 = resistTour4;
     nouvelElement->go = 0;
     nouvelElement->next = NULL;
-    if(liste == NULL){
-        return nouvelElement;
-    }
+    printf("alloc monstre ok\n");
+    if(*liste == NULL){
+        *liste = nouvelElement;
+}
     else{
-        Monstre* temp=liste;
+
+        l_Monstre temp=*liste;
         while(temp->next != NULL){
+            
+       
             temp = temp->next;
+
         }
+        
         temp->next = nouvelElement;
-        return liste;
+
+        
     }
+    printf("monstre créé\n");
+
 }
 
 /*SUPPRIMER MONSTRE*/
@@ -61,11 +73,11 @@ l_Monstre supprimerMonstre(l_Monstre liste, int idMonstre){
     /* Liste vide */
     if(liste == NULL)
         return NULL;
-
+    printf("01\n");
     /* Si l'élément doit être supprimé */
     if(liste->idmonstre == idMonstre)
     {
-
+        printf("(02)\n" );
     glColor3ub(255,25,25);
     glTranslatef(liste->x,liste->y,1);
     glBegin(GL_POLYGON);
@@ -109,6 +121,7 @@ l_Monstre supprimerAllMonstre(l_Monstre liste){
 /*DÉPLACEMENT MONSTRES*/
 
 void deplaceMonstre (l_Monstre liste, float timeVague, int vague, char** message, int * bouge, int * WinLose){
+  
     *bouge = *bouge+1;
     if(*bouge == 4){
         *bouge = 1;
@@ -225,17 +238,18 @@ void AfficherMonstre (l_Monstre liste, int vague, int * bouge){
     int mouv = *bouge;
     glEnable(GL_TEXTURE_2D);
     while (liste!=NULL) {
-        if(liste->go == 1){
-            if(vague == 5 ){
+        
+            if(vague <= 5 ){
+                
                 glBindTexture(GL_TEXTURE_2D, 9);
         DessinMonstre(liste, vague, mouv);
-            }else if(vague == 10){
+            }else if(vague <= 10){
                 glBindTexture(GL_TEXTURE_2D, 13);
         DessinMonstre(liste, vague, mouv);
-            }else if(vague == 15){
+            }else if(vague <= 15){
                 glBindTexture(GL_TEXTURE_2D, 13);
         DessinMonstre(liste, vague, mouv);
-            }else if(vague == 20){
+            }else if(vague <= 20){
                 glBindTexture(GL_TEXTURE_2D, 13);
         DessinMonstre(liste, vague, mouv);
             }else{
@@ -284,7 +298,7 @@ void AfficherMonstre (l_Monstre liste, int vague, int * bouge){
 
 
 
-        }
+        
 
         liste=liste->next;
     }
@@ -295,6 +309,7 @@ void AfficherMonstre (l_Monstre liste, int vague, int * bouge){
 
 void DessinMonstre(l_Monstre liste, int vague, int mouv){
     glLoadIdentity();
+
     glTranslatef(liste->x,liste->y,1);
     glColor3ub(255, 255, 255);
 

@@ -36,7 +36,7 @@ l_node addCoordNoeud(char* fileName) {
     // effectue le truc ligne par ligne.
     while (fgets (line, sizeof(line), fIn) != NULL) {
         i++;
-        if(i>=8){
+        if(i>=9){
             //listing des 8 lignes qui permettent de créer des segments
             fscanf(fIn, "%d %d", &x,&y);
             printf("x : %d y : %d \n", x,y);

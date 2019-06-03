@@ -23,7 +23,7 @@ typedef struct s_Tour{
     struct s_Tour* next;
 } Tour;
 typedef Tour* l_Tour;
-struct s_Tour* next;
+
 l_Tour ajouterTour(l_Tour liste, int* coins, int x, int y,int type, char** message);
 l_Tour supprimerAllTour(l_Tour liste);
 l_Tour selectTour(l_Tour liste, int x, int y, char** message);

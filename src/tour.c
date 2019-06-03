@@ -15,6 +15,7 @@
 #include "tour.h"
 
 
+
 /*AJOUTER TOUR*/
 
 l_Tour ajouterTour(l_Tour liste, int* coins, int x, int y,int type, char** message){
@@ -99,7 +100,9 @@ l_Tour ajouterTour(l_Tour liste, int* coins, int x, int y,int type, char** messa
         nouvelElement->next = NULL;
         if(liste == NULL){
             *message = "NEW Tour";
+
             return nouvelElement;
+
         }
         else{
             Tour* temp=liste;
@@ -107,7 +110,7 @@ l_Tour ajouterTour(l_Tour liste, int* coins, int x, int y,int type, char** messa
                 temp = temp->next;
             }
             temp->next = nouvelElement;
-            *message = "Tour ADDED";
+            printf("Tour ADDED");
             return liste;
         }
     }else{
@@ -116,64 +119,7 @@ l_Tour ajouterTour(l_Tour liste, int* coins, int x, int y,int type, char** messa
 
 }
 
-//permet de placer la tour en glissant la sourie
-void glisserTour(int x, int y, int type){
-    int ray = 0;
-    switch(type) {
-        case 1:
-            ray = 200;
-            break;
-        case 2:
-            ray = 80;
-            break;
-        case 3:
-            ray = 100;
-            break;
-        case 4:
-            ray = 200;
-            break;
-        default:
-            break;
-    }
-    glMatrixMode(GL_MODELVIEW);
-    glTranslatef(x,y,1);
-    //rayon d'action
-    glColor3ub(220, 250, 255);
-        int i;
-        glBegin(GL_LINE_LOOP);
-        for(i=0; i<30; i++){
-            //angle = 2*M_PI*i/30;
-            glVertex2f( cos(2*M_PI*i/30)*(ray), sin(2*M_PI*i/30)*(ray));
-        }
-        glEnd();
 
-    //zone non constructible
-    glColor4f(0.0, 0.0, 0.0, 0.1); 
-    glBegin(GL_POLYGON);
-    for(i=0; i<30; i++){
-        //angle = 2*M_PI*i/30;
-        glVertex2f( cos(2*M_PI*i/30)*(30), sin(2*M_PI*i/30)*(30));
-    }
-    glEnd();
-
-    //Tour
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, 4);
-    glColor4f(1, 1, 1, 0.5);
-    glBegin(GL_QUADS);
-    //HAUT GAUCHE
-    glTexCoord2f(0.25*(type), 0);      glVertex2f(20,20);
-    //HAUT DROITE
-    glTexCoord2f(0.25*(type-1), 0);   glVertex2f(-20, 20);
-    //BAS GAUCHE
-    glTexCoord2f(0.25*(type-1), 0.1);         glVertex2f(-20, -20);
-    //BAS DROIT
-    glTexCoord2f(0.25*(type), 0.1);      glVertex2f(20, -20);
-    glEnd();
-    glDisable(GL_TEXTURE_2D);
-    glLoadIdentity();
-
-}
 
 /*SUPPRIMER TOUTES TOURS*/
 
@@ -186,19 +132,6 @@ l_Tour supprimerAllTour(l_Tour liste){
     return NULL;
 }
 
-/*GESTION SELECTION TOURS*/
-
-l_Tour selectTour(l_Tour liste, int x, int y, char** message){
-    Tour *tmpTour = liste;
-    while(tmpTour != NULL){
-        if(fabs(x-tmpTour->x)<=20 && fabs(y-tmpTour->y)<=20){
-	    *message = "Tour selectionnee";
-            return tmpTour;
-        }
-        tmpTour = tmpTour->next;
-    }
-    return NULL;
-}
 
 /*SUPPRIMER TOUR*/
 
@@ -231,6 +164,7 @@ l_Tour supprimerTour(l_Tour liste, l_Tour aSuppr){
 void afficherTour(l_Tour liste, int ray, l_Tour TourSelected){
     Tour *tmp = liste;
     while(tmp != NULL){
+        
         if(((float)SDL_GetTicks() - tmp->timeCrea)/1000 > tmp->timeConst){
             tmp->active = 1;
         }

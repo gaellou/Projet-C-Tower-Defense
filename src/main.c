@@ -100,7 +100,7 @@ int main(int argc, char** argv) {
         printf ( "Le fichier existe!\n" );
         fclose ( fIn );
     }
-
+printf("itd ok\n");
     /*---------------------------------------------------------------------------------------
                     VALIDATION FICHIER ITD PAS IMPLEMENTEE ON CHARGE DIRECTEMENT LA MAP
      ----------------------------------------------------------------------------------------*/
@@ -113,14 +113,15 @@ int main(int argc, char** argv) {
     GLubyte couleurNoeudOut[3] ={200,0,0};
 
     // récuperer le nom de l'image de map au sein du fichier itd
-    char label[20] = "images/";
+    char label[20] = "images/map1.ppm";
     char* nomFichierImage = label;
 
     l_node ma_liste = NULL;
     //On ajoute les coordonnées des noeuds
-    ma_liste = addCoordNoeud(fileName); //dans fichier map
+    ma_liste = addCoordNoeud(fileName); 
+    printf("%d %d \n", ma_liste->x, ma_liste->y);//dans fichier map
 
-
+printf("liste noeud ok\n");
 
     //Liste des Monstre//
     l_Monstre monst=NULL;
@@ -129,48 +130,49 @@ int main(int argc, char** argv) {
     l_Tour Tours=NULL;
     l_Tour TourSelected=NULL;
 
-    /*--------------------------------------------------------------
-                    DÉCLARATION DES SONS DU JEU
-     --------------------------------------------------------------*/
-
-
-
     //Paramètre le mode vidéo avec une largeur, hauteur, et le nombre
     //de bits par pixel.
     setVideoMode();
     //Nom de la fenêtre.
-    SDL_WM_SetCaption("Tower Defense", NULL);
+    SDL_WM_SetCaption("Guinea Pig Attack - Tower Defense", NULL);
     //Specifie le diamètre des points rasterisés.
     glPointSize(20);
 
-
+printf("videomode ok\n");
     /*--------------------------------------------------------------
                             VARIABLES JEU
      --------------------------------------------------------------*/
-
+printf("init variables \n");
     //position cursor
     int xClicked = -1, yClicked=-1;
     int xMove = -1, yMove=-1;
+printf("cursor ok \n");
     //pause help
     int pause = 1;
-    int help = 0;
+ 
+    printf("pauseok\n");
     //bonhomme qui bouge
     int bouge = 0;
+    printf("mvt ok\n");
     //gagne ou perdu
     int WinLose = 0;
+    printf("winloose ok\n");
     //Si c'est le début du jeu
     int gameStart = 1;
     //vague
-    int vague = 0;
+    int vague = 1;
     float timeVague;
     timeVague = 0.0;
+    printf("vague ok\n");
     //time
     Uint32 startTime;
     startTime = 0.0;
     float SecDixieme = 0;
     float dernierMouv = 0;
+    printf("time ok\n");
     //player
-    int coins = 100;
+    int coins = 250;
+    printf("coins ok\n");
 
     //message
     char** message;
@@ -180,20 +182,30 @@ int main(int argc, char** argv) {
         exit(EXIT_FAILURE);
     }
     *message = NULL;
+    printf("message ok\n");
 
     //gestion d'évennement
     int TourTypeSelected = 0;
     int RaySelected = 0;
+    printf("event ok\n");
     //On crée le pointeur sur la texture.
     GLuint* textureId;
     textureId = texture(tab, &nomFichierImage);
+    printf("TEXTURE OK\n");
 
+printf("variables ok\n");
     /*--------------------------------------------------------------
                         GESTION DE L'AFFICHAGE
      --------------------------------------------------------------*/
 
     int loop = 1;
+    printf("lancement du jeu\n");
+    TourTypeSelected = 1;
+    genereVague(vague, &monst, 10, ma_liste);
+    printf("%d\n",monst->next->vie );
+
     while(loop) {
+
         glClear(GL_COLOR_BUFFER_BIT);
         SecDixieme = (float)SDL_GetTicks()/1000.f;
 
@@ -214,33 +226,38 @@ int main(int argc, char** argv) {
         if(WinLose == 0){
 
             // affichage des Tour
+            
             afficherTour(Tours, RaySelected, TourSelected);
 
             //gestion des vagues
-            if(monst==NULL && pause == 0){
+          if(pause == 1){
                 if(vague == 20){
-                    WinLose = 1;
+
+                    //WinLose = 1;
                 }
                 if(WinLose == 0){
-                    vague++;
-                    if(vague == 1){
-                        timeVague = 0.0;
+                    
+                    if(vague !=0){
+                        timeVague = 2.0;
+                        //vague++;
                     }
-                    timeVague += startTime;
-                    monst = genereVague(vague, monst, 10,ma_liste);
-                    //genereVague(int vague, l_Monstre monst, l_node ma_liste, int nbMonstre);
+                   timeVague += startTime;
+                    genereVague(vague, &monst, 10, ma_liste);
+                    printf("nouvelle vague %d \n", vague);
                    
-                }
-            }
+                   
+               }
+           }
+
 
             else{
                 startTime = SDL_GetTicks() - timeVague;
             }
-
             //on supprime les Monstre tués
             l_Monstre tmpMonstre;
             tmpMonstre = monst;
             while(tmpMonstre != NULL){
+                
                 if(tmpMonstre->vie<1){
                     monst = supprimerMonstre(monst, tmpMonstre->idmonstre);
                     coins +=5+vague-1;
@@ -257,6 +274,7 @@ int main(int argc, char** argv) {
                 dernierMouv = SecDixieme;
                 //gestion Monstre
                 if(monst!=NULL){
+                    printf("+10ms\n");
                     // on gere les deplacement des Monstres
                     deplaceMonstre(monst,((float)startTime)/1000, vague, message, &bouge, &WinLose);
 
@@ -273,23 +291,19 @@ int main(int argc, char** argv) {
             // affichage des Monstre
             AfficherMonstre (monst, vague, &bouge);
 
-            //glissage de la Tour selected
-            /*if(TourTypeSelected != 0){
-                glisserTour(xMove, PIXEL_HEIGHT-yMove, TourTypeSelected);
-            }*/
-
+           
         }//FIN IF WinLose
         else{
             Tours = supprimerAllTour(Tours);
             monst = supprimerAllMonstre(monst);
             if(WinLose == 1){//WINNER
-             
+                afficherMenuWin( WinLose);
                 pause = 1;
                 vague = 0;
                 coins = 100;
             }
             if(WinLose == 2){//LOSER
-       
+                afficherMenuLose( WinLose);
                 pause = 1;
                 vague = 0;
                 coins = 100;
@@ -309,8 +323,9 @@ int main(int argc, char** argv) {
 
         //on retire le curseur de base
         SDL_ShowCursor(0);
+        afficherMouse(xMove, yMove, PIXEL_HEIGHT);
         //Affiche le curseur.
-        //afficherMouse(xMove, yMove, PIXEL_HEIGHT);
+        
 
         SDL_GL_SwapBuffers();
         /* ****** */
@@ -329,17 +344,19 @@ int main(int argc, char** argv) {
                     
                     xClicked = e.button.x;
                     yClicked = (PIXEL_HEIGHT-e.button.y);
-                    TourTypeSelected = 1;
-                    //gestion creation de Tour
-                    if(pause ==  0 && yClicked<730 && TourTypeSelected != 0){
-                        if(xClicked!=-1 && yClicked!=-1){
-                            if(tab[730-yClicked][xClicked] == 1){
-                                Tours = ajouterTour(Tours, &coins, xClicked, yClicked, TourTypeSelected, message);
-                            }else{
-                                *message = "Zone non constructible !!! ";
+                                        //gestion creation de Tour
+                    
+                            if(TourTypeSelected != 0){
+                        
+                            
+                                Tours = ajouterTour(Tours, &coins, xClicked, yClicked, 4, message);
+                                printf("tour construite\n");}
+                            else{
+                                *message = "Select Type (1, 2, 3, 4) !!! ";
                             }
-                        }
-                    }
+                        
+                    
+                            
 
                     break;
                 case SDL_MOUSEBUTTONUP:
@@ -352,6 +369,7 @@ int main(int argc, char** argv) {
                     WINDOW_HEIGHT = e.resize.h;
                     setVideoMode();
                     break;
+                
                        
                 /*--------------------------------------------------------------
                         BOUCLE DE GESTION DES ÉVÉNNEMENTS CLAVIER
@@ -362,15 +380,26 @@ int main(int argc, char** argv) {
                         case 'q' :
                             exit(1);
                             break;
-                        case SDLK_p:
-                            if(pause == 1){
-                               
-                                pause = 0;
-                            }else{
-                                
-                                pause = 1;
-                            }
-                            gameStart = 0;
+                        case SDLK_1 :
+                            TourTypeSelected =1;
+                            break;
+                        case SDLK_2 :
+                            TourTypeSelected = 2;
+                            break;
+                        case SDLK_3 :
+                            TourTypeSelected = 3;
+                            break;
+                        case SDLK_4 :
+                            TourTypeSelected = 4;
+                            break;
+                        case 's' :
+                            vague = 1;
+                            break;
+                        case 'w' :
+                            WinLose = 1;
+                            break;
+                        case 'l' :
+                            WinLose= 2;
                             break;
                         case SDLK_BACKSPACE:
                            
@@ -386,9 +415,9 @@ int main(int argc, char** argv) {
         if(elapsedTime < FRAMERATE_MILLISECONDS) {
             SDL_Delay(FRAMERATE_MILLISECONDS - elapsedTime);
         }
-    }
+    }}
 }
-}
+
     /*--------------------------------------------------------------
                     FREE DES ALLOCATIONS MÉMOIRE
      --------------------------------------------------------------*/

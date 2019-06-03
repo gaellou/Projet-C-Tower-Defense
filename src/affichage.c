@@ -46,3 +46,65 @@ void setVideoMode() {
     glClear(GL_COLOR_BUFFER_BIT);
     SDL_GL_SwapBuffers();
 }
+
+void afficherMouse(int xMove, int yMove, int PIXEL_HEIGHT){
+    glEnable(GL_TEXTURE_2D);
+    glLoadIdentity();
+    glTranslatef(xMove, PIXEL_HEIGHT-yMove,1),
+    glColor3ub(255, 255, 255);
+    glBindTexture(GL_TEXTURE_2D, 12);
+    glBegin(GL_QUADS);
+    glTexCoord2f(1, 0);
+    glVertex2f(17, 0);
+    glTexCoord2f(0, 0);
+    glVertex2f(-12, 0);
+    glTexCoord2f(0, 1);
+    glVertex2f(-12,-30);
+    glTexCoord2f(1, 1);
+    glVertex2f(17, -30);
+    glEnd();
+    
+}
+
+void afficherMenuWin(int Winloose){
+    if(Winloose == 1){
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, 7);
+        glColor4f(1,1,1,1);
+        glLoadIdentity();
+        glBegin(GL_QUADS);
+        glTexCoord2f(1, 0);
+        glVertex2f(1000, 800);
+        glTexCoord2f(0, 0);
+        glVertex2f(0,800);
+        glTexCoord2f(0, 1);
+        glVertex2f(0, 0);
+        glTexCoord2f(1, 1);
+        glVertex2f(1000, 0);
+        glEnd();
+        glBindTexture(GL_TEXTURE_2D, 0);
+        glDisable(GL_TEXTURE_2D);
+
+    }
+}
+void afficherMenuLose(int * Winloose){
+    if(Winloose == 2){
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, 8);
+        glColor4f(1,1,1,1);
+        glLoadIdentity();
+        glBegin(GL_QUADS);
+        glTexCoord2f(1, 0);
+        glVertex2f(1000, 800);
+        glTexCoord2f(0, 0);
+        glVertex2f(0,800);
+        glTexCoord2f(0, 1);
+        glVertex2f(0, 0);
+        glTexCoord2f(1, 1);
+        glVertex2f(1000, 0);
+        glEnd();
+        glBindTexture(GL_TEXTURE_2D, 0);
+        glDisable(GL_TEXTURE_2D);
+
+    }
+}
