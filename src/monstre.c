@@ -29,7 +29,7 @@ void ajouterMonstre(l_Monstre* liste, l_node listeNode, int idMonstre, int vie, 
         fprintf(stderr, "Erreur allocation : Monstre\n");
         exit(EXIT_FAILURE);
     }
-    printf("début allocation montre\n");
+
     nouvelElement->x = listeNode->x;
     nouvelElement->y = listeNode->y;
     nouvelElement->dest = listeNode->next;
@@ -41,9 +41,9 @@ void ajouterMonstre(l_Monstre* liste, l_node listeNode, int idMonstre, int vie, 
     nouvelElement->resistTour2 = resistTour2;
     nouvelElement->resistTour3 = resistTour3;
     nouvelElement->resistTour4 = resistTour4;
-    nouvelElement->go = 0;
+    nouvelElement->go = 1;
     nouvelElement->next = NULL;
-    printf("alloc monstre ok\n");
+
     if(*liste == NULL){
         *liste = nouvelElement;
 }
@@ -61,7 +61,7 @@ void ajouterMonstre(l_Monstre* liste, l_node listeNode, int idMonstre, int vie, 
 
         
     }
-    printf("monstre créé\n");
+
 
 }
 
@@ -73,11 +73,11 @@ l_Monstre supprimerMonstre(l_Monstre liste, int idMonstre){
     /* Liste vide */
     if(liste == NULL)
         return NULL;
-    printf("01\n");
+ 
     /* Si l'élément doit être supprimé */
     if(liste->idmonstre == idMonstre)
     {
-        printf("(02)\n" );
+
     glColor3ub(255,25,25);
     glTranslatef(liste->x,liste->y,1);
     glBegin(GL_POLYGON);

@@ -19,8 +19,8 @@
 
  void genereVague(int vague, l_Monstre* monst, int nbMonstre, l_node ma_liste){
 	float resistTour1 = 0.5;
-	float resistTour2 = 0.7;
-	float resistTour3 = 0.5;
+	float resistTour2 = 0.4;
+	float resistTour3 = 0.2;
 	float resistTour4 = 0.6;
 
 	/*if (vague <= 5){
@@ -40,7 +40,7 @@
 	}*/
 
     int vie = vague*1000;
-    for(int idmonstre=0;idmonstre<nbMonstre;idmonstre++){
+    for(int idmonstre=vague ;idmonstre<nbMonstre;idmonstre++){
       ajouterMonstre(monst, ma_liste, idmonstre, vie, 1, resistTour1, resistTour2, resistTour3, resistTour4);
 
     }

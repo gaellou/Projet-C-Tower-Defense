@@ -35,14 +35,14 @@ l_Tour ajouterTour(l_Tour liste, int* coins, int x, int y,int type, char** messa
             timeConst = 2.f;
             break;
         case 2: //vert
-            ray = 80;
+            ray = 200;
             puissance = 100;
             cadence = 0.1;
             cost = 20;
             timeConst = 10.f;
             break;
         case 3: //jaune
-            ray = 100;
+            ray = 200;
             puissance = 70;
             cadence = 0.2;
             cost = 30;

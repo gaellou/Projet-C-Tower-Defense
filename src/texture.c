@@ -156,46 +156,7 @@ GLuint* texture(int **tab, char** nomFichierImage){
     }
 
 
-    /*Uint32 pixel;
-    Uint8 r,g,b,a;
-    int x,y;
-    int ecartType = 50;
-    int valConstr = 1;
-    int valNonConstr = 0;
-
-    SDL_LockSurface(image); /*On bloque la surface
-    for (y=0;y<730;y++)
-    {
-        for (x=0;x<1000;x++)
-        {
-            pixel = obtenirPixel(image,x,y);
-            SDL_GetRGBA(pixel, image->format, &r, &g, &b, &a);
-
-            /*Ici, on mettra du code pour modifier les composantes du pixel.
-            if(r >= 255-ecartType && g <= 0+ecartType && b>=255-ecartType){
-              
-                //On place la valeur qui définit s'il est possible de construire ou non.
-                tab[y][x] = valConstr;
-
-                //valeurs remapping
-                r = 255;
-                g = 200;
-                b = 80;
-                a = 255;
-                /*Et une fois qu'on les a modifiés :
-                pixel = SDL_MapRGBA(image->format, r, g, b, a);
-                //printf("couleur r : %d g : %d b : %d et %d\n",r, g, b, a);
-
-            }else{
-                //On place la valeur qui définit qu'il est impossible de construire.
-                tab[y][x] = valNonConstr;
-            }
-            /*Et pour changer la valeur d'un pixel : 
-            definirPixel(image,x,y,pixel);
-        }
-    }
-    SDL_UnlockSurface(image); /*On libère la surface, elle peut être utilisée*/
-
+    
 
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image->w, image->h, 0, format,GL_UNSIGNED_BYTE, image->pixels);

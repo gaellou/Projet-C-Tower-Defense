@@ -200,7 +200,7 @@ printf("variables ok\n");
 
     int loop = 1;
     printf("lancement du jeu\n");
-    TourTypeSelected = 1;
+    TourTypeSelected = 4;
     genereVague(vague, &monst, 10, ma_liste);
     printf("%d\n",monst->next->vie );
 
@@ -230,20 +230,20 @@ printf("variables ok\n");
             afficherTour(Tours, RaySelected, TourSelected);
 
             //gestion des vagues
-          if(pause == 1){
-                if(vague == 20){
+          if(pause == 1 && vague<=20){
+                if(vague == 20 && monst==NULL){
 
-                    //WinLose = 1;
+                    WinLose = 1;
                 }
-                if(WinLose == 0){
+                if(WinLose == 0 ){
                     
                     if(vague !=0){
                         timeVague = 2.0;
-                        //vague++;
+                        vague++;
                     }
                    timeVague += startTime;
                     genereVague(vague, &monst, 10, ma_liste);
-                    printf("nouvelle vague %d \n", vague);
+
                    
                    
                }
@@ -349,7 +349,7 @@ printf("variables ok\n");
                             if(TourTypeSelected != 0){
                         
                             
-                                Tours = ajouterTour(Tours, &coins, xClicked, yClicked, 4, message);
+                                Tours = ajouterTour(Tours, &coins, xClicked, yClicked, TourTypeSelected, message);
                                 printf("tour construite\n");}
                             else{
                                 *message = "Select Type (1, 2, 3, 4) !!! ";
@@ -380,16 +380,16 @@ printf("variables ok\n");
                         case 'q' :
                             exit(1);
                             break;
-                        case SDLK_1 :
+                        case 'c':
                             TourTypeSelected =1;
                             break;
-                        case SDLK_2 :
+                        case 'v' :
                             TourTypeSelected = 2;
                             break;
-                        case SDLK_3 :
+                        case 'b' :
                             TourTypeSelected = 3;
                             break;
-                        case SDLK_4 :
+                        case 'n' :
                             TourTypeSelected = 4;
                             break;
                         case 's' :
