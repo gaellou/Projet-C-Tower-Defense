@@ -87,7 +87,7 @@ void afficherMenuWin(int Winloose){
 
     }
 }
-void afficherMenuLose(int * Winloose){
+void afficherMenuLose(int  Winloose){
     if(Winloose == 2){
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, 8);

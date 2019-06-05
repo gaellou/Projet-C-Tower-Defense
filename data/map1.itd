@@ -1,7 +1,5 @@
 @ITD 1
-#premiere ligne de commentaire
 carte fichier.ppm
-
 3
 chemin 255 255 255
 noeud 0 0 0
@@ -9,7 +7,7 @@ construct 255 200 80
 in 0 200 0
 out 200 0 0
 4
-0 0 172 1
-1 351 172 2
-2 351 587 3
-3 1000 587 1
+ 0 580 
+ 351 580
+ 351 173 
+1000 173

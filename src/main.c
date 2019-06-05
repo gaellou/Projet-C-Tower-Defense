@@ -35,6 +35,8 @@ static unsigned int PIXEL_HEIGHT = 800;
 static const Uint32 FRAMERATE_MILLISECONDS = 1000 / 60;
 
 
+
+
 int main(int argc, char** argv) {
 
     /*--------------------------------------------------------------
@@ -106,9 +108,9 @@ printf("itd ok\n");
      ----------------------------------------------------------------------------------------*/
 
     //Initialisation des tableaux rgb grâce à GLubyte
-    GLubyte couleurConstruct[3] = {255,200,80};
+
     GLubyte couleurChemin[3] ={255,255,255};
-    GLubyte couleurNoeud[3] = {0,0,0};
+
     GLubyte couleurNoeudIn[3] = {0,200,0};
     GLubyte couleurNoeudOut[3] ={200,0,0};
 
@@ -157,12 +159,11 @@ printf("cursor ok \n");
     //gagne ou perdu
     int WinLose = 0;
     printf("winloose ok\n");
-    //Si c'est le début du jeu
-    int gameStart = 1;
     //vague
     int vague = 1;
     float timeVague;
     timeVague = 0.0;
+    int WinVague =0 ;
     printf("vague ok\n");
     //time
     Uint32 startTime;
@@ -200,7 +201,7 @@ printf("variables ok\n");
 
     int loop = 1;
     printf("lancement du jeu\n");
-    TourTypeSelected = 4;
+    TourTypeSelected = 1;
     genereVague(vague, &monst, 10, ma_liste);
     printf("%d\n",monst->next->vie );
 
@@ -235,14 +236,15 @@ printf("variables ok\n");
 
                     WinLose = 1;
                 }
-                if(WinLose == 0 ){
+                if(WinLose == 0 && WinVague == 1){
                     
                     if(vague !=0){
                         timeVague = 2.0;
                         vague++;
                     }
                    timeVague += startTime;
-                    genereVague(vague, &monst, 10, ma_liste);
+                    genereVague(vague, &monst, 5, ma_liste);
+                    WinVague = 0;
 
                    
                    
@@ -251,44 +253,40 @@ printf("variables ok\n");
 
 
             else{
-                startTime = SDL_GetTicks() - timeVague;
             }
             //on supprime les Monstre tués
             l_Monstre tmpMonstre;
             tmpMonstre = monst;
-            while(tmpMonstre != NULL){
+           
                 
-                if(tmpMonstre->vie<1){
+                if(tmpMonstre->vie <= 1){
                     monst = supprimerMonstre(monst, tmpMonstre->idmonstre);
                     coins +=5+vague-1;
+                    printf("deplacement");
                 }
                 tmpMonstre=tmpMonstre->next;
-            }
+            
 
-            /*--------------------------------------------------------------
-                                GESTION DES 10 MS.
-             --------------------------------------------------------------*/
 
-            //si il s'est passé 0.1 sec depuis la dernière gestion des evenements
-            if(SecDixieme-dernierMouv > 0.1 && pause == 0){
-                dernierMouv = SecDixieme;
-                //gestion Monstre
+
+           
                 if(monst!=NULL){
-                    printf("+10ms\n");
-                    // on gere les deplacement des Monstres
+                   
+                    // on gere les deplacement des Monstres*/
                     deplaceMonstre(monst,((float)startTime)/1000, vague, message, &bouge, &WinLose);
 
                     // gestiondes tir des Tour
                     gestionTour(Tours, monst);
 
                 }else{
+                    WinVague = 1;
                     printf("\033[37;41m");
                     printf("YOU WIN Vague : %d\n", vague);
                     printf("\033[30;49m");
                 }
 
-            }
-            // affichage des Monstre
+            
+            
             AfficherMonstre (monst, vague, &bouge);
 
            

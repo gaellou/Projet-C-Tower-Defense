@@ -23,21 +23,21 @@
 	float resistTour3 = 0.2;
 	float resistTour4 = 0.6;
 
-	/*if (vague <= 5){
+	if (vague >= 5){
 		resistTour1 =0.5;
 	}
-	if (vague <= 10){
+	if (vague >= 10){
 		resistTour2 = 0.5;
 	}
-	if (vague <= 15){
+	if (vague >= 15){
 		resistTour2 = 0.3;
 		resistTour3 = 0.5;
 	}
-	if (vague <= 50){
+	if (vague >= 25){
 		resistTour2 = 0.7;
 		resistTour3 = 0.5;
 		resistTour4 = 0.5;
-	}*/
+	}
 
     int vie = vague*1000;
     for(int idmonstre=vague ;idmonstre<nbMonstre;idmonstre++){
