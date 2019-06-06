@@ -168,8 +168,7 @@ printf("cursor ok \n");
     //time
     Uint32 startTime;
     startTime = 0.0;
-    float SecDixieme = 0;
-    float dernierMouv = 0;
+ 
     printf("time ok\n");
     //player
     int coins = 250;
@@ -208,8 +207,6 @@ printf("variables ok\n");
     while(loop) {
 
         glClear(GL_COLOR_BUFFER_BIT);
-        SecDixieme = (float)SDL_GetTicks()/1000.f;
-
         /* dessin */
 
         glMatrixMode(GL_MODELVIEW);
