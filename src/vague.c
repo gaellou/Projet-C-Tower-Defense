@@ -18,10 +18,10 @@
 //generation de vague de monstre de differente resistance au differents types de tour suivant l'avancé du jeu//
 
  void genereVague(int vague, l_Monstre* monst, int nbMonstre, l_node ma_liste){
-	float resistTour1 = 0.5;
-	float resistTour2 = 0.4;
-	float resistTour3 = 0.2;
-	float resistTour4 = 0.6;
+	float resistTour1 = 0.6;
+	float resistTour2 = 1;
+	float resistTour3 = 1;
+	float resistTour4 = 1;
 
 	if (vague >= 5){
 		resistTour1 =0.5;
