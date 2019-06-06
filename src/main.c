@@ -231,19 +231,20 @@ printf("variables ok\n");
             afficherTour(Tours, RaySelected, TourSelected);
 
             //gestion des vagues
-          if(pause == 1 && vague<=20){
-                if(vague == 20 && monst==NULL){
+          if(pause == 1 ){
+                if(vague == 50 && monst==NULL){
 
                     WinLose = 1;
                 }
                 if(WinLose == 0 && WinVague == 1){
                     
-                    if(vague !=0){
+                    if(vague !=0 && monst==NULL){
                         timeVague = 2.0;
                         vague++;
                     }
+                  
                    timeVague += startTime;
-                    genereVague(vague, &monst, 5, ma_liste);
+                    genereVague(vague, &monst, 51, ma_liste);
                     WinVague = 0;
 
                    
@@ -258,14 +259,15 @@ printf("variables ok\n");
             l_Monstre tmpMonstre;
             tmpMonstre = monst;
            
-                
+                if(tmpMonstre!=NULL){
                 if(tmpMonstre->vie <= 1){
                     monst = supprimerMonstre(monst, tmpMonstre->idmonstre);
                     coins +=5+vague-1;
                     printf("deplacement");
                 }
                 tmpMonstre=tmpMonstre->next;
-            
+            }
+            else{ }
 
 
 
